@@ -20,7 +20,13 @@ public class Imitator {
         }
 
         List<String> words = FileReader.readTheFileToArrayList(fileName);
-        // System.out.println(words.get(0));
+        // for(int i = 0; i < n; i++) {
+        //     System.out.println(words.get(i));
+        // }
+        Chain chain = new Chain(words, n);
+        List<String> temp = chain.getPref();
+        System.out.println(temp);
+        Map<List<String>, List<String>> map = chain.build(words);
     }
     // function(s)
 }
