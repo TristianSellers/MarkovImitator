@@ -1,4 +1,6 @@
 public class Imitator {
+    import java.util.*;
+    import java.io.*;
     public static void main(String [] args) {
         /*
         Implement the algorithm as a program that accepts a 
@@ -9,5 +11,5 @@ public class Imitator {
         raylangnola as a collaborator        
         */
     }
-    /// function(s)
+    // function(s)
 }
