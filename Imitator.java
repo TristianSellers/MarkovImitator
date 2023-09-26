@@ -20,13 +20,31 @@ public class Imitator {
         }
 
         List<String> words = FileReader.readTheFileToArrayList(fileName);
-        // for(int i = 0; i < n; i++) {
-        //     System.out.println(words.get(i));
-        // }
         Chain chain = new Chain(words, n);
         List<String> temp = chain.getPref();
-        System.out.println(temp);
-        Map<List<String>, List<String>> map = chain.build(words);
+        // System.out.println(temp);
+        Map<List<String>, List<String>> markovMap = chain.build(words);
+        // System.out.println("markovMap size: " + markovMap.size());
+
+        List<String> prefix = getPrefix(words, n);
+        System.out.println(prefix);
+        String test = markov(markovMap, prefix);
     }
+    public static List<String> getPrefix(List<String> list, int n) {
+        List<String> result = new ArrayList<>();
+        for(int i = 0; i < n; i++) {
+            result.add(list.get(i));
+        }
+        return result;
+    }
+    public static String markov(Map<List<String>, List<String>> map, List<String> prefix) {
+        Random random = new Random();
+        String result = "";
+        return result;
+    }
+
+    // private static  List<String> movePrefix(List<String> prefix, List<String> words) {
+    //     List<String>
+    // }
     // function(s)
 }

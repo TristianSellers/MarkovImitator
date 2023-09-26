@@ -28,11 +28,17 @@ public class Chain {
         result.put(pref, new ArrayList<>());
         for(int i = 0; i < list.size(); i++) {
             String curr = list.get(i);
+            // System.out.printf("curr after assignment from list.get(%d): %s\n",
+                        // i,curr);
             if(!pref.contains(curr)){
+                // System.out.println(pref);
+                if(result.get(pref) == null) {
+                    result.put(pref, new ArrayList<>());
+                }
                 List<String> valueList = result.get(pref);
-                System.out.println(valueList);
+                // System.out.println(valueList);
                 valueList.add(curr);
-                System.out.println(valueList);
+                // System.out.println(valueList);
                 result.put(pref, valueList);
                 pref.remove(0);
                 pref.add(curr);
@@ -40,5 +46,20 @@ public class Chain {
         }
         return result;
     } 
+
+    @Override
+    public boolean equals (Object o) {
+        if(this == o) {return true;}
+        if(o == null || this.getClass() != o.getClass()) {
+            return false;
+        }
+        Chain c = (Chain)o;
+        return pref == c.getPref();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(pref);
+    }
 
 }
