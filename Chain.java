@@ -9,13 +9,14 @@ public class Chain {
 
     public Chain(List<String> list, int n) {
         prefix = new ArrayList<>();
-        for(String x : list) {
+        for(int i = 0; i < n; i++) {
             if(prefix.size() == n) {
                 break;
             }
             else {
-                prefix.add(x);
+                prefix.add(list.get(i));
             }
+            // System.out.println(prefix);
         }
     }
 
@@ -23,8 +24,10 @@ public class Chain {
         return prefix;
     }
 
-    public Map<List<String>, List<String>> build(List<String> words, int n) {
+    public Map<List<String>, List<String>> build(List<String> words, int n, List<String> prefix) {
+        prefix = this.prefix;
         Map<List<String>, List<String>> result = new HashMap<>();
+        result.put(prefix, new ArrayList<>());
         for(int i = 0; i < words.size(); i++) {
             // System.out.println(prefix);
             int ndx = i + n;
@@ -39,26 +42,36 @@ public class Chain {
                 currVList.add(words.get(ndx));
                 prefix.add(words.get(ndx));
                 prefix.remove(0);
-                // if(currVList.size() > 1) {
-                //     System.out.println(currVList.size());
-                // }
             }
         }
         return result;
     }
 
-    public List<String> createImitator(Map<List<String>, List<String>> map) {
+    public List<String> createImitator(Map<List<String>, List<String>> map, List<String> prefix) {
+        Random random = new Random();
+        prefix = this.prefix;
         List<String> result = new ArrayList<>();
         for(String x : prefix) {
             result.add(x);
         }
-        for(Map.Entry<List<String>, List<String>> x : map.entrySet()) {
+        while(result.size() <= 150) {
             List<String> currentList = map.get(prefix);
-            int randomIndex = random.nextInt(currentList.size());
-            
+            System.out.println("Prefix: " + prefix + "\n\nList: \n" + currentList);
+            if(currentList.size() > 1) {
+                int randomIndex = random.nextInt(currentList.size());
+                String randomWord = currentList.get(randomIndex);
+                result.add(randomWord);
+                prefix.add(randomWord);
+                prefix.remove(0);
+            }
+            else {
+                String word = currentList.get(0);
+                result.add(word);
+                prefix.add(word);
+                prefix.remove(0);
+            }
         }
         return result;
-        }
     }
 
     @Override

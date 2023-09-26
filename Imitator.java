@@ -20,9 +20,31 @@ public class Imitator {
         }
 
         List<String> words = FileReader.readTheFileToArrayList(fileName);
-        
-        Chain chain = new Chain(words, n);
 
-        Map<List<String>, List<String>> markovMap = chain.build(words, n);
+        Chain chain = new Chain(words, n);
+        List<String> test = chain.getPrefix();
+        // System.out.println(test);
+
+        // System.out.println(words.size());
+
+        Map<List<String>, List<String>> markovMap = chain.build(words, n, test);
+
+        // if(markovMap.containsKey(test)) {
+        //     System.out.println("1");
+        // }
+        // else {
+        //     System.out.println("2");
+        // }
+
+        List<String> markovList = chain.createImitator(markovMap, test);
+        
+        markov(markovList);
+    }
+    public static void markov(List<String> list) {
+        String result = "";
+        for(String x : list) {
+            result += x;
+        }
+        System.out.println(result);
     }
 }
