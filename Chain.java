@@ -50,6 +50,7 @@ public class Chain {
                 temp.add(prefix.get(2));
                 temp.add(words.get(ndx));
                 prefix = temp;
+                // System.out.println(temp + "\n" + prefix + "\n");
                 // System.out.println(currVList.size());
             }
         }
@@ -59,26 +60,39 @@ public class Chain {
 
     public List<String> createImitator(Map<List<String>, List<String>> map) {
         Random random = new Random();
-        List<String> currentPrefix = prefix;
         List<String> result = new ArrayList<>();
-        for(String x : currentPrefix) {
+        // System.out.println(prefix);
+        // prefix = newPrefix;
+        // System.out.println(prefix);
+        for(String x : prefix) {
             result.add(x);
         }
-        while(result.size() <= 150) {
-            List<String> currentList = map.get(currentPrefix);
-            System.out.println("Prefix: " + currentPrefix + "\n\nList: \n" + currentList);
+        // System.out.println(result);
+        while(result.size() <= 150 || result.size() == map.size()) {
+            // System.out.println(prefix);
+            List<String> currentList = map.get(prefix);
+            // System.out.println("Prefix: " + prefix + "\n\nList: \n" + currentList + "\n\nResult: \n" + result);
+            if(currentList == null) {
+                break;
+            }
             if(currentList.size() > 1) {
                 int randomIndex = random.nextInt(currentList.size());
                 String randomWord = currentList.get(randomIndex);
                 result.add(randomWord);
-                currentPrefix.add(randomWord);
-                currentPrefix.remove(0);
+                List<String> temp = new ArrayList<>();
+                temp.add(prefix.get(1));
+                temp.add(prefix.get(2));
+                temp.add(randomWord);
+                prefix = temp;
             }
             else {
                 String word = currentList.get(0);
                 result.add(word);
-                currentPrefix.add(word);
-                currentPrefix.remove(0);
+                List<String> temp = new ArrayList<>();
+                temp.add(prefix.get(1));
+                temp.add(prefix.get(2));
+                temp.add(word);
+                prefix = temp;
             }
         }
         return result;
