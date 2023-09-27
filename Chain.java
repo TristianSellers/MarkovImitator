@@ -29,9 +29,9 @@ public class Chain {
     }
 
     public Map<List<String>, List<String>> build(List<String> words, int n) {
-        List<String> currentPrefix = prefix;
+        // List<String> currentPrefix = prefix;
         Map<List<String>, List<String>> result = new HashMap<>();
-        result.put(currentPrefix, new ArrayList<>());
+        result.put(prefix, new ArrayList<>());
         for(int i = 0; i < words.size(); i++) {
             // System.out.println(prefix);
             int ndx = i + n;
@@ -39,15 +39,21 @@ public class Chain {
                 break;
             }
             else {
-                if(!result.containsKey(currentPrefix)) {
-                    result.put(currentPrefix, new ArrayList<>());
+                if(!result.containsKey(prefix)) {
+                    // System.out.println(prefix);
+                    result.put(prefix, new ArrayList<>());
                 }
-                List<String> currVList = result.get(currentPrefix);
+                List<String> currVList = result.get(prefix);
                 currVList.add(words.get(ndx));
-                currentPrefix.add(words.get(ndx));
-                currentPrefix.remove(0);
+                List<String> temp = new ArrayList<>();
+                temp.add(prefix.get(1));
+                temp.add(prefix.get(2));
+                temp.add(words.get(ndx));
+                prefix = temp;
+                // System.out.println(currVList.size());
             }
         }
+        // System.out.println(result);
         return result;
     }
 
@@ -85,7 +91,7 @@ public class Chain {
             return false;
         }
         Chain c = (Chain)o;
-        return prefix == c.getPrefix();
+        return prefix.equals(c.getPrefix());
     }
 
     @Override
