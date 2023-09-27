@@ -24,10 +24,14 @@ public class Chain {
         return prefix;
     }
 
-    public Map<List<String>, List<String>> build(List<String> words, int n, List<String> prefix) {
-        prefix = this.prefix;
+    public void setPrefix(List<String> list) {
+        prefix = list;
+    }
+
+    public Map<List<String>, List<String>> build(List<String> words, int n) {
+        List<String> currentPrefix = prefix;
         Map<List<String>, List<String>> result = new HashMap<>();
-        result.put(prefix, new ArrayList<>());
+        result.put(currentPrefix, new ArrayList<>());
         for(int i = 0; i < words.size(); i++) {
             // System.out.println(prefix);
             int ndx = i + n;
@@ -35,40 +39,40 @@ public class Chain {
                 break;
             }
             else {
-                if(!result.containsKey(prefix)) {
-                    result.put(prefix, new ArrayList<>());
+                if(!result.containsKey(currentPrefix)) {
+                    result.put(currentPrefix, new ArrayList<>());
                 }
-                List<String> currVList = result.get(prefix);
+                List<String> currVList = result.get(currentPrefix);
                 currVList.add(words.get(ndx));
-                prefix.add(words.get(ndx));
-                prefix.remove(0);
+                currentPrefix.add(words.get(ndx));
+                currentPrefix.remove(0);
             }
         }
         return result;
     }
 
-    public List<String> createImitator(Map<List<String>, List<String>> map, List<String> prefix) {
+    public List<String> createImitator(Map<List<String>, List<String>> map) {
         Random random = new Random();
-        prefix = this.prefix;
+        List<String> currentPrefix = prefix;
         List<String> result = new ArrayList<>();
-        for(String x : prefix) {
+        for(String x : currentPrefix) {
             result.add(x);
         }
         while(result.size() <= 150) {
-            List<String> currentList = map.get(prefix);
-            System.out.println("Prefix: " + prefix + "\n\nList: \n" + currentList);
+            List<String> currentList = map.get(currentPrefix);
+            System.out.println("Prefix: " + currentPrefix + "\n\nList: \n" + currentList);
             if(currentList.size() > 1) {
                 int randomIndex = random.nextInt(currentList.size());
                 String randomWord = currentList.get(randomIndex);
                 result.add(randomWord);
-                prefix.add(randomWord);
-                prefix.remove(0);
+                currentPrefix.add(randomWord);
+                currentPrefix.remove(0);
             }
             else {
                 String word = currentList.get(0);
                 result.add(word);
-                prefix.add(word);
-                prefix.remove(0);
+                currentPrefix.add(word);
+                currentPrefix.remove(0);
             }
         }
         return result;

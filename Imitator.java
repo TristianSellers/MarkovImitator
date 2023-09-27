@@ -22,12 +22,14 @@ public class Imitator {
         List<String> words = FileReader.readTheFileToArrayList(fileName);
 
         Chain chain = new Chain(words, n);
-        List<String> test = chain.getPrefix();
+        // List<String> test = chain.getPrefix();
         // System.out.println(test);
+
+        // chain.setPrefix(test);
 
         // System.out.println(words.size());
 
-        Map<List<String>, List<String>> markovMap = chain.build(words, n, test);
+        Map<List<String>, List<String>> markovMap = chain.build(words, n);
 
         // if(markovMap.containsKey(test)) {
         //     System.out.println("1");
@@ -36,7 +38,7 @@ public class Imitator {
         //     System.out.println("2");
         // }
 
-        List<String> markovList = chain.createImitator(markovMap, test);
+        List<String> markovList = chain.createImitator(markovMap);
         
         markov(markovList);
     }
